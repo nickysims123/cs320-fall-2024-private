@@ -28,6 +28,19 @@ module ListSet = struct
 end
 
 
+(*
+let rec of_list l =
+  match l with
+  | [] -> ListSet.empty
+  | [x] -> ListSet.singleton x
+  | x :: l -> ListSet.union (ListSet.singleton x) (of_list l)
+
+let l0 = [0; -1; 23; 5435; 2]
+(* let l1 = [0; -2; 1; 23; 3] *)
+
+let _ = assert (5 = ListSet.card (of_list l0))
+let _ = assert false
+*)
 module FuncSet = struct
   type t = set_info
 
