@@ -27,9 +27,6 @@ module ListSet = struct
 
 end
 
-let _ = print_endline "HELLOOOOO" 
-let _= print_int (ListSet.card [0; -1; 23; 5435; 2])
-let _ = print_endline "HELLOOOOO2" 
 
 module FuncSet = struct
   type t = set_info
