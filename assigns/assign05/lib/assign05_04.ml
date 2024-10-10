@@ -20,22 +20,16 @@ module ListSet = struct
 
   let singleton value = [value]
 
-  let rec card t = 
-    match t with
-    | [] -> 0
-    | _::tail -> 1 + card tail
+  let card t = List.length t
 
   let union l1 l2 = 
-  List.fold_right (fun x acc -> if mem x acc then acc else x :: acc) l1 l2
+  List.sort compare (List.fold_right (fun x acc -> if mem x acc then acc else x :: acc) l1 l2)
 
-  (*
-  let union l1 l2 = 
-    let loop l1 l2 acc = 
-      match l1, l2 with
-      | h1::t1, h2::t2 -> if h1 <> h2 then (min h1 h2)::
-    in loop l1 l2 []
-  *)
 end
+
+let _ = print_endline "HELLOOOOO" 
+let _= print_int (ListSet.card [0; -1; 23; 5435; 2])
+let _ = print_endline "HELLOOOOO2" 
 
 module FuncSet = struct
   type t = set_info

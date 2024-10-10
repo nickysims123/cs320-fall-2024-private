@@ -15,17 +15,4 @@ let rec fold_left op base test =
   | TestCase test1 -> op base test1
   | TestList tests -> List.fold_left (fold_left op) base tests
 
-
-
-
-
-
-(*
-let fold_left op base test = 
-  let rec loop op base test acc = 
-    match test with
-    [] -> acc
-    | TestCase(test)::t -> loop op base t (acc @ [op base test]) 
-    | TestList(tests)::t -> loop op base (tests@t) acc
-  in loop op base test []
-  *)
+  
