@@ -1,7 +1,7 @@
 (*
 Nicholas Sima
 U39334521
-CS 320 Fall 2024 A1
+CS320 Fall 2024 A1
 
 Your First Lexer
 *)
