@@ -14,7 +14,7 @@ let val_to_expr v =
 let rec subst v x e =
   match e with
   | Num _ | True | False | Unit -> e
-  | Var y -> if x = y then v else e
+  | Var y -> if x = y then val_to_expr v else e
   | App (e1, e2) -> App (subst v x e1, subst v x e2)
   | Bop (op, e1, e2) -> Bop (op, subst v x e1, subst v x e2)
   | If (e1, e2, e3) -> If (subst v x e1, subst v x e2, subst v x e3)
@@ -36,7 +36,7 @@ let rec eval e =
       (match eval e1 with
         | Ok (VFun (x, e)) -> 
             (match eval e2 with
-            | Ok v2 -> eval (subst (val_to_expr v2) x e)
+            | Ok v2 -> eval (subst (v2) x e)
             | Error _ as err -> err) 
         | Ok _ -> Error InvalidApp
         | Error _ as err -> err) 
@@ -71,7 +71,7 @@ let rec eval e =
         | Error _ as err -> err) 
   | Let (x, e1, e2) ->
       (match eval e1 with
-        | Ok v1 -> eval (subst (val_to_expr v1) x e2)
+        | Ok v1 -> eval (subst (v1) x e2)
         | Error _ as err -> err) 
   | Fun (x, e) -> Ok (VFun (x, e))  
  
