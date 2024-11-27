@@ -146,10 +146,14 @@ let eval expr =
     | Fun (arg, _, body) -> VClos { name = None; arg; body; env }
     | App (e1, e2) -> (
       match eval_expr env e1 with
-      | VClos { name = _; arg; body; env = closed_env } ->
+      | VClos { name = Some f; arg; body; env = closed_env } ->
           let v2 = eval_expr env e2 in
-          let added_env = Env.add arg v2 closed_env in
+          let added_env = Env.add f (VClos { name = Some f; arg; body; env = closed_env }) (Env.add arg v2 closed_env) in
           eval_expr added_env body
+      | VClos { name = None ; arg; body; env = closed_env } -> 
+        let v2 = eval_expr env e2 in 
+        let added_env = Env.add arg v2 closed_env in 
+        eval_expr added_env body
       | _ -> assert false
   )
       | If (cond, then_, else_) -> (
@@ -194,5 +198,5 @@ let interp input =
       | Ok _ -> Ok (eval expr)
       | Error e -> Error e
   )
-  | None -> Error ParseErr
+  | _ -> Error ParseErr
   
