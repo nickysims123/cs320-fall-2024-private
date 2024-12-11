@@ -223,7 +223,7 @@ let rec eval_expr env exp =
       match eval_expr env cond with
       | VBool true -> eval_expr env e_then
       | VBool false -> eval_expr env e_else
-      | _ -> failwith "Condition of if must be a boolean"
+      | _ -> failwith "If requres a boolean"
     )
   | ListMatch { matched; hd_name; tl_name; cons_case; nil_case } -> (
       match eval_expr env matched with
